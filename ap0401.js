@@ -24,8 +24,9 @@ function init() {
   const scene = new THREE.Scene();
 
   // 座標軸の設定
-  const axes = new THREE.AxesHelper(18);
+  const axes = new THREE.AxesHelper(18); 
   scene.add(axes);
+  
 
   // ブロック数のカウント
   let nBrick = 0
@@ -37,7 +38,7 @@ function init() {
     document.getElementById("score").innerText
       = String(Math.round(score)).padStart(8, "0");
     document.getElementById("life").innerText
-      = (life > 0) ? "⚪︎⚪︎⚪︎".substring(0, life) : "-- Game Over --";
+      = (life > 0) ? "○○○".substring(0, life) : "-- Game Over --";
   }
   
 
@@ -78,13 +79,6 @@ function init() {
     speed = 0;
     ballLive = false;
     life--;
-    setScore(score);
-    
-    if (life <= 0) {
-     
-      makeBricks();
-      resetBrick();
-    }
   }
   
   
@@ -92,7 +86,8 @@ function init() {
   // ボールを動かす
   function startBall() {
     if (life <=0) {
-      
+      life=3;
+      resetBrick();
      }
     ballLive = true;
       speed = 10;
@@ -139,10 +134,6 @@ function init() {
   const vLimit = vFrameD / 2;
   function frameCheck() {
     // 右
-    // if (ball.position.x + ballR > hLimit) {
-    //   ball.position.x = hLimit - ballR;
-    //   vx = -Math.ads(vx);
-    // }
     if (ball.position.x + ballR > hLimit){
       ball.position.x = hLimit - ballR;
       vx = -Math.abs(vx);
